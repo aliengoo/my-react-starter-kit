@@ -14,6 +14,7 @@ import path from 'path';
 import source from 'vinyl-source-stream';
 import exorcist from 'exorcist';
 
+
 import {WindowsToaster} from 'node-notifier';
 
 let notifier = new WindowsToaster({
@@ -63,6 +64,7 @@ gulp.task('build:css', () => {
   ];
 
   return gulp.src(mainFile)
+    .pipe(lp.plumber())
     .pipe(lp.inject(gulp.src(imports, {read: false}), {
       relative: true,
       starttag: '/* inject:imports */',
@@ -127,6 +129,11 @@ var watcher = () => {
   gulp.watch('src/index.html', ['deploy:index']);
 };
 
-gulp.task('default', ['deploy:index', 'vendor:css', 'build:css', 'build:js'], watcher);
+gulp.task('serve', function(){
+  lp.nodemon({'script': 'server/index.js'});
+});
+
+
+gulp.task('default', ['deploy:index', 'vendor:css', 'build:css', 'build:js', 'serve'], watcher);
 
 gulp.task("build:js:watch", ["build:js"], watcher);

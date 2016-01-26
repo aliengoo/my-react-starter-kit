@@ -1,0 +1,16 @@
+{
+  "ignore": [
+    ".git", "node_modules", "client", "public", "gulpfile.js", ".things", ".idea"
+  ],
+  "verbose": true,
+  "execMap": {
+    "js": "node --harmony --debug"
+  },
+  "watch": [
+    "server"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js"
+}
